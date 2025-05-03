@@ -14,6 +14,7 @@ Designed with a clean, intuitive, and responsive user interface, the app ensures
 - [Usage](#usage)
 - [Running the Application](#running-the-application)
 - [API Endpoints](#api-endpoints)
+- [Environment Variables](#environment-variables)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -84,15 +85,27 @@ Designed with a clean, intuitive, and responsive user interface, the app ensures
 - **PUT /api/projects/:id**: Update an existing project.
 - **DELETE /api/projects/:id**: Delete a project.
 
-### Environment Variables
+## Environment Variables
 
-Make sure to create a `.env` file in the server directory with the following variables:
+### Server Environment Variables
+
+Create a `.env` file in the `server` directory with the following variables:
 
 ```
-MONGODB_URI=your_mongodb_connection_string
+MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 PORT=your_server_port
 ```
+
+### Client Environment Variables
+
+Create a `.env` file in the `client` directory with the following variables:
+
+```
+VITE_API_BASE_URL=http://localhost:5000/api
+```
+
+> ⚠️ **Make sure to replace the placeholder values with your actual configuration.**
 
 ## Contributing
 
