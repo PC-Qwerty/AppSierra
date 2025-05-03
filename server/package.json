@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
+    "install:build": "npm ci && npm run build",
     "start:dev": "nodemon index.ts",
-    "start": "ts-node index.ts"
+    "start": "ts-node -r dotenv/config ./.dist/index.js",
+    "build": "tsc -p .",
+    "postinstall": "npm run build"
   },
   "keywords": [],
   "author": "",
