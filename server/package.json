@@ -5,7 +5,7 @@
   "scripts": {
     "install:build": "npm ci && npm run build",
     "start:dev": "nodemon index.ts",
-    "start": "ts-node -r dotenv/config ./.dist/index.js",
+    "start": "ts-node index.ts",
     "build": "tsc -p .",
     "postinstall": "npm run build"
   },
