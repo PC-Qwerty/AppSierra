@@ -59,7 +59,8 @@ const loginUser = async (req: Request, res: Response) => {
 
 const getMe = async (req: Request, res: Response) => {
   if (!req.user) {
-    return res.status(401).json({ message: "Not authorized" });
+    res.status(401).json({ message: "Not authorized" });
+    throw new Error("Not Authorized");
   }
 
   const user = {
@@ -74,7 +75,8 @@ const getMe = async (req: Request, res: Response) => {
 
 const editProfile = async (req: Request, res: Response) => {
   if (!req.user) {
-    return res.status(401).json({ message: "Not authorized" });
+    res.status(401).json({ message: "Not authorized" });
+    throw new Error("Not Authorized");
   }
   const { id } = req.user;
   const { name, email, country } = req.body;
