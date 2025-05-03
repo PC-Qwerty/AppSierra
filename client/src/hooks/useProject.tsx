@@ -1,21 +1,17 @@
-import { useRecoilState, useResetRecoilState } from "recoil";
+import { useAtom } from "jotai";
 import {
-  projectsState,
-  activeProjectState,
-  projectLoadingState,
-  projectErrorState,
-} from "../recoil/atoms.ts";
+  projectsAtom,
+  activeProjectAtom,
+  projectLoadingAtom,
+  projectErrorAtom,
+} from "../jotai/atoms.ts";
 import projectService from "../services/projectService.ts";
 
 export const useProject = () => {
-  const [projects, setProjects] = useRecoilState(projectsState);
-  const [activeProject, setActiveProject] = useRecoilState(activeProjectState);
-  const [isLoading, setIsLoading] = useRecoilState(projectLoadingState);
-  const [error, setError] = useRecoilState(projectErrorState);
-
-  const resetProjects = useResetRecoilState(projectsState);
-  const resetActiveProject = useResetRecoilState(activeProjectState);
-  const resetError = useResetRecoilState(projectErrorState);
+  const [projects, setProjects] = useAtom(projectsAtom);
+  const [activeProject, setActiveProject] = useAtom(activeProjectAtom);
+  const [isLoading, setIsLoading] = useAtom(projectLoadingAtom);
+  const [error, setError] = useAtom(projectErrorAtom);
 
   const getProjects = async (token: string) => {
     try {
@@ -106,8 +102,5 @@ export const useProject = () => {
     createProject,
     updateProject,
     deleteProject,
-    resetProjects,
-    resetActiveProject,
-    resetError,
   };
 };

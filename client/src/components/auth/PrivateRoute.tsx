@@ -8,7 +8,6 @@ interface PrivateRouteProps {
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const [user] = useAtom(userAtom);
-  console.log(user);
 
   if (!user) {
     return <Navigate to="/" replace />;

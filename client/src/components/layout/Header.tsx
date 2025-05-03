@@ -43,7 +43,7 @@ const Header: React.FC = () => {
                 className="hidden md:block cursor-pointer"
                 onClick={() => navigate("/profile")}
               >
-                <span className="font-medium">{user.user.name}</span>
+                <span className="font-medium">{user?.user?.name}</span>
               </div>
               <button
                 onClick={handleLogout}

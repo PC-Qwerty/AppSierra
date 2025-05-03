@@ -1,26 +1,20 @@
-import { useRecoilState, useResetRecoilState } from "recoil";
-import {
-  userState,
-  authLoadingState,
-  authErrorState,
-} from "../recoil/atoms.ts";
+import { useAtom } from "jotai";
+import { userAtom, authLoadingAtom, authErrorAtom } from "../jotai/atoms.ts";
 import authService from "../services/authService.ts";
 import { useNavigate } from "react-router-dom";
 
 export const useAuth = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useRecoilState(userState);
-  const [isLoading, setIsLoading] = useRecoilState(authLoadingState);
-  const [error, setError] = useRecoilState(authErrorState);
-
-  const resetUser = useResetRecoilState(userState);
-  const resetError = useResetRecoilState(authErrorState);
+  const [user, setUser] = useAtom(userAtom);
+  const [isLoading, setIsLoading] = useAtom(authLoadingAtom);
+  const [error, setError] = useAtom(authErrorAtom);
 
   const login = async (email: string, password: string) => {
     try {
       setIsLoading(true);
       setError("");
       const userData = await authService.login({ email, password });
+
       setUser(userData);
       navigate("/dashboard");
     } catch (error) {
@@ -51,7 +45,7 @@ export const useAuth = () => {
 
   const logout = () => {
     authService.logout();
-    resetUser();
+    setUser(null);
     navigate("/login");
   };
 
@@ -62,6 +56,5 @@ export const useAuth = () => {
     login,
     register,
     logout,
-    resetError,
   };
 };

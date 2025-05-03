@@ -27,7 +27,7 @@ const Register: React.FC = () => {
 
     try {
       const response = await authService.register(data);
-      setUser(response.data);
+      setUser(response);
       navigate("/dashboard");
     } catch (err: unknown) {
       const error = err as ApiError;

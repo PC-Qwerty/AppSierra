@@ -1,5 +1,5 @@
 import axios from "axios";
-import { User, ApiResponse } from "../types";
+import { User } from "../types";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3830/api";
 
@@ -9,8 +9,8 @@ const authService = {
     email: string;
     password: string;
     country: string;
-  }): Promise<ApiResponse<User>> => {
-    const response = await axios.post<ApiResponse<User>>(
+  }): Promise<User> => {
+    const response = await axios.post<User>(
       `${API_URL}/auth/register`,
       userData
     );
@@ -20,24 +20,21 @@ const authService = {
   login: async (credentials: {
     email: string;
     password: string;
-  }): Promise<ApiResponse<User>> => {
-    const response = await axios.post<ApiResponse<User>>(
+  }): Promise<User> => {
+    const response = await axios.post<User>(
       `${API_URL}/auth/login`,
       credentials
     );
-    return response.data;
+    return response.data; // ✅ this is of type User
   },
 
-  getMe: async (token: string): Promise<ApiResponse<User>> => {
+  getMe: async (token: string): Promise<User> => {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await axios.get<ApiResponse<User>>(
-      `${API_URL}/auth/me`,
-      config
-    );
+    const response = await axios.get<User>(`${API_URL}/auth/me`, config);
     return response.data;
   },
 
@@ -48,13 +45,13 @@ const authService = {
       email?: string;
       country?: string;
     }
-  ): Promise<ApiResponse<User>> => {
+  ): Promise<User> => {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await axios.put<ApiResponse<User>>(
+    const response = await axios.put<User>(
       `${API_URL}/auth/profile/edit`,
       userData,
       config

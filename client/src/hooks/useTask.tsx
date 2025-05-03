@@ -1,19 +1,12 @@
-import { useRecoilState, useResetRecoilState } from "recoil";
-import {
-  tasksState,
-  taskLoadingState,
-  taskErrorState,
-} from "../recoil/atoms.ts";
+import { useAtom } from "jotai";
+import { tasksAtom, taskLoadingAtom, taskErrorAtom } from "../jotai/atoms.ts";
 import taskService from "../services/taskService.ts";
 import { TaskStatus } from "../types";
 
 export const useTask = () => {
-  const [tasks, setTasks] = useRecoilState(tasksState);
-  const [isLoading, setIsLoading] = useRecoilState(taskLoadingState);
-  const [error, setError] = useRecoilState(taskErrorState);
-
-  const resetTasks = useResetRecoilState(tasksState);
-  const resetError = useResetRecoilState(taskErrorState);
+  const [tasks, setTasks] = useAtom(tasksAtom);
+  const [isLoading, setIsLoading] = useAtom(taskLoadingAtom);
+  const [error, setError] = useAtom(taskErrorAtom);
 
   const getTasks = async (projectId: string, token: string) => {
     try {
@@ -100,7 +93,5 @@ export const useTask = () => {
     createTask,
     updateTask,
     deleteTask,
-    resetTasks,
-    resetError,
   };
 };

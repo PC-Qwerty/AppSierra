@@ -2,6 +2,7 @@ import { useAtom } from "jotai";
 import { userAtom } from "../jotai/atoms";
 import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { authService } from "../services";
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -23,20 +24,20 @@ const Profile = () => {
     setIsEditing((prev) => !prev);
   };
 
-  const onSubmit = (data: { name: string; email: string; country: string }) => {
-    setUser((prevUser) => {
-      if (!prevUser) return prevUser; // safety for null case
-
-      return {
-        ...prevUser,
-        user: {
-          ...prevUser.user,
-          ...data,
-        },
-      };
-    });
-
-    setIsEditing(false);
+  const onSubmit = async (data: {
+    name: string;
+    email: string;
+    country: string;
+  }) => {
+    if (!user?.token) return;
+    try {
+      const updatedUser = await authService.editProfile(user.token, data);
+      setUser(updatedUser);
+      reset(updatedUser.user); // ✅ manually reset form with updated data
+      setIsEditing(false);
+    } catch (err) {
+      console.error("Failed to update user profile:", err);
+    }
   };
 
   return (

@@ -25,6 +25,7 @@ const Login: React.FC = () => {
 
     try {
       const response = await authService.login(data);
+
       setUser(response);
       navigate("/dashboard");
     } catch (err: unknown) {
